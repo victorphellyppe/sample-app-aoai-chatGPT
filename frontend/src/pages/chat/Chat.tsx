@@ -11,7 +11,7 @@ import DOMPurify from 'dompurify';
 
 import styles from "./Chat.module.css";
 import Contoso from "../../assets/Contoso.svg";
-import Microfone from "../../assets/Microphone.png";
+import Microfone from "../../assets/Microphone.svg";
 import { XSSAllowTags } from "../../constants/xssAllowTags";
 
 import {
