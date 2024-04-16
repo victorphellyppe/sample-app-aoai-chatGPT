@@ -774,7 +774,7 @@ const Chat = () => {
                         </Dialog>
                     </Stack>
                     {/* Botão de microfone para iniciar gravação */}
-                    <button className={styles.microphoneButton} onClick={startRecording} disabled={isLoading}>
+                    <button style={{ width: '60px' }} className={styles.microphoneButton} onClick={startRecording} disabled={isLoading}>
                         <img src={Microphone} className={styles.microphoneIcon} alt="Microphone Icon" />
                     </button>
                     {/* Campo de entrada de texto */}
