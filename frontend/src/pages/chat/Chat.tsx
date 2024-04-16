@@ -765,13 +765,13 @@ const Chat = () => {
                             disabled={disabledButton()}
                             aria-label="clear chat button"
                         /> */}
-                        <Dialog
+                        {/* <Dialog
                             hidden={hideErrorDialog}
                             onDismiss={handleErrorDialogClose}
                             dialogContentProps={errorDialogContentProps}
                             modalProps={modalProps}
                         >
-                        </Dialog>
+                        </Dialog> */}
                     </Stack>
                     {/* Botão de microfone para iniciar gravação */}
                     <button style={{ width: '60px', border:'1px solid red' }} className={styles.microphoneButton} onClick={startRecording} disabled={isLoading}>
