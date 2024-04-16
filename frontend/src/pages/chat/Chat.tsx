@@ -814,6 +814,7 @@ const Chat = () => {
 </div>
     );
 };
+
 function startRecording() {
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then(function(stream) {
@@ -826,10 +827,18 @@ function startRecording() {
 
             mediaRecorder.addEventListener("stop", () => {
                 const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                const audioUrl = URL.createObjectURL(audioBlob);
 
-                // Aqui você pode enviar o áudio gravado para o servidor ou fazer qualquer outra ação necessária
-                console.log("Audio gravado:", audioUrl);
+                // Transcrição de fala usando a API do Google Speech-to-Text
+                transcribeSpeech(audioBlob)
+                    .then(transcription => {
+                        console.log("Transcrição de fala:", transcription);
+
+                        // Aqui você pode fazer qualquer coisa com a transcrição, como atribuí-la a um input de texto
+                        // document.getElementById("texto").value = transcription;
+                    })
+                    .catch(error => {
+                        console.error("Erro ao transcrever fala:", error);
+                    });
             });
 
             // Inicia a gravação
@@ -844,4 +853,30 @@ function startRecording() {
             console.error('Erro ao acessar o microfone: ', err);
         });
 }
+
+async function transcribeSpeech(audioBlob: Blob) {
+    const audioFile = new File([audioBlob], "audio.wav", { type: 'audio/wav' });
+
+
+    // Substitua 'YOUR_GOOGLE_API_KEY' pela sua chave de API do Google Cloud Platform
+    const apiKey = 'YOUR_GOOGLE_API_KEY';
+    const apiUrl = `https://speech.googleapis.com/v1/speech:recognize?key=${apiKey}`;
+
+    const formData = new FormData();
+    formData.append('audio', audioFile);
+    formData.append('config', JSON.stringify({ encoding: 'LINEAR16', sampleRateHertz: 16000, languageCode: 'pt-BR' }));
+
+    const response = await fetch(apiUrl, {
+        method: 'POST',
+        body: formData
+    });
+
+    const data = await response.json();
+    if (data.results && data.results.length > 0 && data.results[0].alternatives && data.results[0].alternatives.length > 0) {
+        return data.results[0].alternatives[0].transcript;
+    } else {
+        throw new Error('Nenhuma transcrição encontrada.');
+    }
+}
+
 export default Chat;
