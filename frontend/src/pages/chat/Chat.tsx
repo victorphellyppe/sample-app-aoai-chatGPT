@@ -11,7 +11,7 @@ import DOMPurify from 'dompurify';
 
 import styles from "./Chat.module.css";
 import Contoso from "../../assets/Contoso.svg";
-import Microphone from "../../assets/Microphone.png";
+import Microfone from "../../assets/Microphone.png";
 import { XSSAllowTags } from "../../constants/xssAllowTags";
 
 import {
@@ -775,7 +775,7 @@ const Chat = () => {
                     </Stack>
                     {/* Botão de microfone para iniciar gravação */}
                     <button style={{ width: '60px', border:'1px solid red' }} className={styles.microphoneButton} onClick={startRecording} disabled={isLoading}>
-                        <img style={{ width: '40px' }} src={Microphone} className={styles.microphoneIcon} alt="Microphone Icon" />
+                        <img style={{ width: '40px' }} src={Microfone} className={styles.microphoneIcon} alt="Microphone Icon" />
                     </button>
                     {/* Campo de entrada de texto */}
                     <QuestionInput
