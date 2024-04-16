@@ -5,6 +5,11 @@
     gap: 20px
 }
 
+.microphoneButton {
+    width: 30px;
+    height: 30px;
+}
+
 .chatRoot {
     flex: 1;
     display: flex;
