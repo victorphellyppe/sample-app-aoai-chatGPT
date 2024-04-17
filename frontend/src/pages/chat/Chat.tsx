@@ -633,6 +633,7 @@ const Chat = () => {
 
     const [isRecording, setIsRecording] = useState(false);
     const [transcription, setTranscription] = useState('');
+    const transcriptionInputRef = useRef<HTMLInputElement>(null);
 
     const startRecording = () => {
         console.log('startRecording');
@@ -650,7 +651,12 @@ const Chat = () => {
     };
     
     const stopRecording = () => {
+        console.log('stopRecording');
         setIsRecording(false);
+        // Se houver uma transcrição válida, definir o valor do campo de entrada
+        if (transcription && transcriptionInputRef.current) {
+            transcriptionInputRef.current.value = transcription;
+        }
     };
 
     const clearTranscription = () => {
@@ -782,19 +788,20 @@ const Chat = () => {
                         />}
                     </Stack>
                     {/* Botão de microfone para iniciar gravação */}
-                    {/* <div style={{ width: '60px', marginRight: '5px', border: '1px solid red' }}> */}
+                    <div style={{ marginRight: '50px' }}>
                     <button
                         onClick={isRecording ? stopRecording : startRecording}
-                        style={{ width: '60px', background: 'none', border: 'none', padding: '0', position: 'relative', marginRight: '10px' }}
+                        style={{ width: '60px', background: 'none', border: 'none', padding: '0', position: 'relative',  }}
                         className={styles.microphoneButton}
                         disabled={isLoading}
                     >
                         <img style={{ width: '40px', position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)' }} src={Microfone} className={styles.microphoneIcon} alt="Microphone Icon" />
                         {!isRecording && transcription && <span style={{ position: 'absolute', right: '-25px', top: '50%', transform: 'translateY(-50%)' }}>Clear</span>}
                     </button>
-                    {/* </div> */}
+                    </div>
 
                     {/* Campo de entrada de texto */}
+                    <input ref={transcriptionInputRef} type="text" />
                     <QuestionInput
                             
                             onSend={(question, id) => {
