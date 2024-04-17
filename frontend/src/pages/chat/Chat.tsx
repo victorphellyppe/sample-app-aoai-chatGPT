@@ -635,6 +635,8 @@ const Chat = () => {
     const [transcription, setTranscription] = useState('');
 
     const startRecording = () => {
+        console.log('startRecording');
+        
         const recognition = createSpeechRecognition();
         recognition.lang = 'pt-BR';
     
