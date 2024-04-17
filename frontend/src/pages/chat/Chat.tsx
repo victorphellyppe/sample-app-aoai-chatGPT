@@ -632,55 +632,28 @@ const Chat = () => {
     }
 
     const [isRecording, setIsRecording] = useState(false);
-    const transcriptionInputRef = useRef(null);
+    const [transcription, setTranscription] = useState('');
 
-
-    useEffect(() => {
-        const toggleRecordingButton = document.getElementById('toggleRecording');
-        const clearTranscriptionButton = document.getElementById('clearTranscription');
-
-        let recognition: any;
-        let isRecording = false;
-
-        toggleRecordingButton?.addEventListener('click', () => {
-            if (!isRecording) {
-                recognition = createSpeechRecognition();
-                recognition.lang = 'pt-BR';
-                recognition.start();
-                recognition.onresult = (event: any) => {
-                    const result = event.results[0][0].transcript;
-                    if (transcriptionInputRef.current) {
-                        (transcriptionInputRef.current as HTMLInputElement).value = result;
-                    }
-                };
-                toggleRecordingButton.textContent = 'Parar Gravação';
-            } else {
-                if (recognition) {
-                    recognition.stop();
-                }
-                toggleRecordingButton.textContent = 'Iniciar Gravação';
-            }
-            isRecording = !isRecording;
-            setIsRecording(isRecording);
-        });
-
-        clearTranscriptionButton?.addEventListener('click', () => {
-            if (transcriptionInputRef.current) { 
-                (transcriptionInputRef.current as HTMLInputElement).value = '';
-            }
-        });
-
-        // Cleanup
-        return () => {
-            if (toggleRecordingButton) {
-                toggleRecordingButton.removeEventListener('click', () => {});
-            }
-            
-            if (clearTranscriptionButton) {
-                clearTranscriptionButton.removeEventListener('click', () => {});
-            }
+    const startRecording = () => {
+        const recognition = createSpeechRecognition();
+        recognition.lang = 'pt-BR';
+    
+        recognition.onresult = (event: any) => {
+            const result = event.results[0][0].transcript;
+            setTranscription(result);
         };
-    }, []);
+    
+        recognition.start();
+        setIsRecording(true);
+    };
+    
+    const stopRecording = () => {
+        setIsRecording(false);
+    };
+
+    const clearTranscription = () => {
+        setTranscription('');
+    };
 
     function createSpeechRecognition() {
         if ('webkitSpeechRecognition' in window) {
@@ -807,11 +780,19 @@ const Chat = () => {
                         />}
                     </Stack>
                     {/* Botão de microfone para iniciar gravação */}
-                    <div style={{ width: '60px',paddingRight: '5px', border:'1px solid red' }}>
-                        <button id="toggleRecording" style={{ width: '60px' }} className={styles.microphoneButton} disabled={isLoading}>
-                            OK<img style={{ width: '40px', paddingLeft: '15px' }} src={Microfone} className={styles.microphoneIcon} alt="Microphone Icon" />
-                        </button>
+                    <div style={{ width: '60px', marginRight: '5px', border: '1px solid red' }}>
+                        <button
+                            onClick={isRecording ? stopRecording : startRecording}
+                            style={{ width: '60px', background: 'none', border: 'none', padding: '0' }}
+                            className={styles.microphoneButton}
+                            disabled={isLoading}
+                        >
+                            <img style={{ width: '40px', paddingLeft: '15px' }} src={Microfone} className={styles.microphoneIcon} alt="Microphone Icon" />
+                        </button> 
+                        <button onClick={clearTranscription}>Clear</button>
+
                     </div>
+
                     {/* Campo de entrada de texto */}
                     <QuestionInput
                             
