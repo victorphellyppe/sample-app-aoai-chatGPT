@@ -810,7 +810,6 @@ const Chat = () => {
                         placeholder="Type a new question..."
                         clearOnSend
                         conversationId={appStateContext?.state.currentChat?.id}
-                        recordedText={transcription} 
                     />
                 </Stack>
             </div>
