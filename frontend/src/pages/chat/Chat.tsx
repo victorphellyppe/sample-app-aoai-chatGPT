@@ -801,17 +801,17 @@ const Chat = () => {
                     </div>
 
                     {/* Campo de entrada de texto */}
-                    <input ref={transcriptionInputRef} type="text" />
+                    {/* <input ref={transcriptionInputRef} type="text" /> */}
                     <QuestionInput
-                            
-                            onSend={(question, id) => {
-                                appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
-                            }}
-                            disabled={isLoading}
-                            placeholder="Type a new question..."
-                            clearOnSend
-                            conversationId={appStateContext?.state.currentChat?.id}
-                        />
+                        onSend={(question, id) => {
+                            appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
+                        }}
+                        disabled={isLoading}
+                        placeholder="Type a new question..."
+                        clearOnSend
+                        conversationId={appStateContext?.state.currentChat?.id}
+                        recordedText={transcription} 
+                    />
                 </Stack>
             </div>
             {/* Citation Panel */}

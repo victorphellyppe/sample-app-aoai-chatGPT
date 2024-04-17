@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect  } from "react";
 import { Stack, TextField } from "@fluentui/react";
 import { SendRegular } from "@fluentui/react-icons";
 import Send from "../../assets/Send.svg";
@@ -10,11 +10,17 @@ interface Props {
     placeholder?: string;
     clearOnSend?: boolean;
     conversationId?: string;
-    id?: string;
+    recordedText?: string;
 }
 
-export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conversationId }: Props) => {
+export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conversationId, recordedText }: Props) => {
     const [question, setQuestion] = useState<string>("");
+
+    useEffect(() => {
+        if (recordedText) {
+            setQuestion(recordedText);
+        }
+    }, [recordedText]);
 
     const sendQuestion = () => {
         if (disabled || !question.trim()) {
@@ -57,6 +63,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
                 onChange={onQuestionChange}
                 onKeyDown={onEnterPress}
             />
+
             <div
                 className={styles.questionInputSendButtonContainer}
                 role="button"
