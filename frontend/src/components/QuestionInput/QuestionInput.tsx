@@ -10,6 +10,7 @@ interface Props {
     placeholder?: string;
     clearOnSend?: boolean;
     conversationId?: string;
+    id?: string;
 }
 
 export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conversationId }: Props) => {
@@ -20,9 +21,9 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             return;
         }
 
-        if(conversationId){
+        if (conversationId) {
             onSend(question, conversationId);
-        }else{
+        } else {
             onSend(question);
         }
 
@@ -45,7 +46,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
     const sendQuestionDisabled = disabled || !question.trim();
 
     return (
-        <Stack horizontal className={styles.questionInputContainer}>
+        <Stack horizontal className={styles.questionInputContainer} id={id}> {/* Adicionando o id ao componente */}
             <TextField
                 className={styles.questionInputTextArea}
                 placeholder={placeholder}
@@ -56,20 +57,22 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
                 onChange={onQuestionChange}
                 onKeyDown={onEnterPress}
             />
-            <div className={styles.questionInputSendButtonContainer} 
-                role="button" 
+            <div
+                className={styles.questionInputSendButtonContainer}
+                role="button"
                 tabIndex={0}
                 aria-label="Ask question button"
                 onClick={sendQuestion}
-                onKeyDown={e => e.key === "Enter" || e.key === " " ? sendQuestion() : null}
+                onKeyDown={e => (e.key === "Enter" || e.key === " ") ? sendQuestion() : null}
             >
-                { sendQuestionDisabled ? 
-                    <SendRegular className={styles.questionInputSendButtonDisabled}/>
-                    :
-                    <img src={Send} className={styles.questionInputSendButton}/>
-                }
+                {sendQuestionDisabled ? (
+                    <SendRegular className={styles.questionInputSendButtonDisabled} />
+                ) : (
+                    <img src={Send} className={styles.questionInputSendButton} />
+                )}
             </div>
             <div className={styles.questionInputBottomBorder} />
         </Stack>
+
     );
 };
