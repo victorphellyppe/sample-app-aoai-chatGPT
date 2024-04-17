@@ -812,7 +812,7 @@ const Chat = () => {
                     </button>
                     {/* Campo de entrada de texto */}
                     <QuestionInput
-                            id="toggleRecording" // Passando o id como propriedade
+                            
                             onSend={(question, id) => {
                                 appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
                             }}

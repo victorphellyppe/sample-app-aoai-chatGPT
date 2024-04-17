@@ -46,7 +46,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
     const sendQuestionDisabled = disabled || !question.trim();
 
     return (
-        <Stack horizontal className={styles.questionInputContainer} id={id}> {/* Adicionando o id ao componente */}
+        <Stack horizontal className={styles.questionInputContainer}>
             <TextField
                 className={styles.questionInputTextArea}
                 placeholder={placeholder}
