@@ -665,8 +665,8 @@ const Chat = () => {
         });
 
         clearTranscriptionButton?.addEventListener('click', () => {
-            if (transcriptionInputRef.current) { // Verificar se a referência atual não é nula
-                transcriptionInputRef.current.value = '';
+            if (transcriptionInputRef.current) { 
+                (transcriptionInputRef.current as HTMLInputElement).value = '';
             }
         });
 
