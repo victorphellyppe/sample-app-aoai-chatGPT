@@ -672,8 +672,13 @@ const Chat = () => {
 
         // Cleanup
         return () => {
-            toggleRecordingButton.removeEventListener('click', () => {});
-            clearTranscriptionButton.removeEventListener('click', () => {});
+            if (toggleRecordingButton) {
+                toggleRecordingButton.removeEventListener('click', () => {});
+            }
+            
+            if (clearTranscriptionButton) {
+                clearTranscriptionButton.removeEventListener('click', () => {});
+            }
         };
     }, []);
 
