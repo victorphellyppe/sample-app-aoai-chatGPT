@@ -780,18 +780,17 @@ const Chat = () => {
                         />}
                     </Stack>
                     {/* Botão de microfone para iniciar gravação */}
-                    <div style={{ width: '60px', marginRight: '5px', border: '1px solid red' }}>
-                        <button
-                            onClick={isRecording ? stopRecording : startRecording}
-                            style={{ width: '60px', background: 'none', border: 'none', padding: '0' }}
-                            className={styles.microphoneButton}
-                            disabled={isLoading}
-                        >
-                            <img style={{ width: '40px', paddingLeft: '15px' }} src={Microfone} className={styles.microphoneIcon} alt="Microphone Icon" />
-                        </button> 
-                        <button onClick={clearTranscription}>Clear</button>
-
-                    </div>
+                    {/* <div style={{ width: '60px', marginRight: '5px', border: '1px solid red' }}> */}
+                    <button
+                        onClick={isRecording ? stopRecording : startRecording}
+                        style={{ width: '60px', background: 'none', border: 'none', padding: '0', position: 'relative' }}
+                        className={styles.microphoneButton}
+                        disabled={isLoading}
+                    >
+                        <img style={{ width: '40px', position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)' }} src={Microfone} className={styles.microphoneIcon} alt="Microphone Icon" />
+                        {!isRecording && transcription && <span style={{ position: 'absolute', right: '-25px', top: '50%', transform: 'translateY(-50%)' }}>Clear</span>}
+                    </button>
+                    {/* </div> */}
 
                     {/* Campo de entrada de texto */}
                     <QuestionInput
