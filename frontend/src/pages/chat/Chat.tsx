@@ -807,9 +807,11 @@ const Chat = () => {
                         />}
                     </Stack>
                     {/* Botão de microfone para iniciar gravação */}
-                    <button id="toggleRecording" style={{ width: '60px',paddingLeft: '5px', border:'1px solid red' }} className={styles.microphoneButton} disabled={isLoading}>
-                        OK<img style={{ width: '40px', paddingLeft: '15px' }} src={Microfone} className={styles.microphoneIcon} alt="Microphone Icon" />
-                    </button>
+                    <div style={{ width: '60px',paddingRight: '5px', border:'1px solid red' }}>
+                        <button id="toggleRecording" style={{ width: '60px' }} className={styles.microphoneButton} disabled={isLoading}>
+                            OK<img style={{ width: '40px', paddingLeft: '15px' }} src={Microfone} className={styles.microphoneIcon} alt="Microphone Icon" />
+                        </button>
+                    </div>
                     {/* Campo de entrada de texto */}
                     <QuestionInput
                             
