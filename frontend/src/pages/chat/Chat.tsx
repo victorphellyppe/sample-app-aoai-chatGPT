@@ -744,7 +744,7 @@ const Chat = () => {
                             />}
                         </Stack>
                         {/* Botão de microfone para iniciar gravação */}
-                        <button style={{ width: '60px', border:'1px solid red' }} className={styles.microphoneButton} onClick={startRecording} disabled={isLoading}>
+                        <button style={{ width: '60px', border:'1px solid blue' }} className={styles.microphoneButton} onClick={startRecording} disabled={isLoading}>
                             <img style={{ width: '40px' }} src={Microfone} className={styles.microphoneIcon} alt="Microphone Icon" />
                         </button>
                         {/* Campo de entrada de texto */}
@@ -787,8 +787,7 @@ const Chat = () => {
 
 
 const startRecording = () => {
-    console.log("Iniciando gravação de audio...");
-    
+    console.log("Iniciando gravação de audio..."); 
 };
 
 
