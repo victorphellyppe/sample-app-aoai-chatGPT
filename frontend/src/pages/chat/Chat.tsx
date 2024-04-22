@@ -791,7 +791,7 @@ const Chat = () => {
                     <div style={{ marginRight: '50px' }}>
                     <button
                         onClick={isRecording ? stopRecording : startRecording}
-                        style={{ width: '60px', background: 'none', border: 'none', padding: '0', position: 'relative',  }}
+                        style={{ width: '60px', background: 'none', border: 'none', padding: '0', position: 'relative', marginRight: '50px' }}
                         className={styles.microphoneButton}
                         disabled={isLoading}
                     >
