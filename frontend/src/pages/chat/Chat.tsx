@@ -640,7 +640,9 @@ const Chat = () => {
         console.log('startRecording');
         
         const recognition = createSpeechRecognition();
-        recognition.lang = 'pt-BR';
+        // recognition.lang = 'pt-BR';
+        recognition.lang = ['pt-BR', 'en-US', 'es-ES'];
+
     
         recognition.onresult = (event: any) => {
             const result = event.results[0][0].transcript;
