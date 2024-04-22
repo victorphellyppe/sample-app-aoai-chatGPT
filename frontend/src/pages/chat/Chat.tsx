@@ -789,7 +789,7 @@ const Chat = () => {
                         />}
                     </Stack>
                     {/* Botão de microfone para iniciar gravação */}
-                    <div style={{ marginRight: '50px' }}>
+                    {/* <div style={{ marginRight: '60px' }}>
                     <button
     onClick={isRecording ? stopRecording : startRecording}
     style={{ width: '60px', background: 'none', border: 'none', padding: '0', position: 'relative', marginRight: '50px' }}
@@ -812,7 +812,23 @@ const Chat = () => {
                         <img style={{ width: '40px', position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)' }} src={Microfone} className={styles.microphoneIcon} alt="Microphone Icon" />
                         {!isRecording && transcription && <span style={{ position: 'absolute', right: '-25px', top: '50%', transform: 'translateY(-50%)' }}>Clear</span>}
                     </button> */}
-                    </div>
+                    {/* </div> */} 
+                    <div style={{ marginRight: '60px' }}>
+    <button
+        onClick={isRecording ? stopRecording : startRecording}
+        style={{ width: '60px', background: 'none', border: 'none', padding: '0', position: 'relative', marginRight: '50px' }}
+        className={styles.microphoneButton}
+        disabled={isLoading}
+    >
+        {isRecording ? (
+            <img style={{ width: '40px', position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)' }} src={StopIcon} className={styles.microphoneIcon} alt="Outro Ícone" />
+        ) : (
+            <img style={{ width: '40px', position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)' }} src={Microfone} className={styles.microphoneIcon} alt="Microfone Icon" />
+        )}
+        {!isRecording && transcription && <span style={{ position: 'absolute', right: '-25px', top: '50%', transform: 'translateY(-50%)' }}>Clear</span>}
+    </button>
+</div>
+
 
                     {/* Campo de entrada de texto */}
                     {/* <input ref={transcriptionInputRef} type="text" /> */}
