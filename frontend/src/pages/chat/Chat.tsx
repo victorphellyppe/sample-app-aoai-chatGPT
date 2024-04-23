@@ -818,10 +818,10 @@ const Chat = () => {
                     <div style={{ marginRight: '60px' }}>
     <button
         onClick={isRecording ? stopRecording : startRecording}
-        style={{ border: '1px solid red', width: '60px', background: 'none', border: 'none', padding: '0', position: 'relative', marginRight: '50px' }}
         className={styles.microphoneButton}
         disabled={isLoading}
-    >
+        >
+        {/* style={{ border: '1px solid red', width: '60px', background: 'none', border: 'none', padding: '0', position: 'relative', marginRight: '50px' }} */}
         {isRecording ? (
             <img style={{ width: '40px', position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)' }} src={StopIcon} className={styles.microphoneIcon} alt="Outro Ícone" />
         ) : (
