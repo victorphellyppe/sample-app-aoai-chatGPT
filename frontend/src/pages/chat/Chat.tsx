@@ -815,7 +815,7 @@ const Chat = () => {
                         {!isRecording && transcription && <span style={{ position: 'absolute', right: '-25px', top: '50%', transform: 'translateY(-50%)' }}>Clear</span>}
                     </button> */}
                     {/* </div> */} 
-                    <div style={{ marginRight: '60px' }}>
+                    <div style={{ marginRight: '60px', border: '1px solid red' }}>
     <button
         onClick={isRecording ? stopRecording : startRecording}
         className={styles.microphoneButton}

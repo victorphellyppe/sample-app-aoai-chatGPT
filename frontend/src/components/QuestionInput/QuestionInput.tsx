@@ -82,7 +82,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             onKeyDown={onEnterPress}
         />
         <div
-            className={styles.questionInputSendButtonContainer}
+        style={{border: '1px solid green'}}
             role="button"
             tabIndex={0}
             aria-label={isRecording ? "Stop recording" : "Start recording"}
