@@ -114,8 +114,8 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             </div>
         </div> */}
 
+{/* style={{ border: '1px solid green' }} */}
 <div
-    style={{ border: '1px solid green' }}
     role="button"
     tabIndex={0}
     aria-label={isRecording ? "Stop recording" : "Start recording"}
@@ -131,22 +131,26 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             <img src={Microfone} className={styles.questionInputSendButton} alt="Start recording" />
         </button>
     )}
+
+
+
+    <div
+        className={styles.questionInputSendButtonContainer}
+        role="button"
+        tabIndex={0}
+        aria-label="Ask question button"
+        onClick={sendQuestion}
+        onKeyDown={e => (e.key === "Enter" || e.key === " ") ? sendQuestion() : null}
+    >
+        {sendQuestionDisabled ? 
+            <SendRegular className={styles.questionInputSendButtonDisabled} />
+            :
+            <img src={Send} className={styles.questionInputSendButton} alt="Send question" />
+        }
+    </div>
 </div>
 
-<div
-    className={styles.questionInputSendButtonContainer}
-    role="button"
-    tabIndex={0}
-    aria-label="Ask question button"
-    onClick={sendQuestion}
-    onKeyDown={e => (e.key === "Enter" || e.key === " ") ? sendQuestion() : null}
->
-    {sendQuestionDisabled ? 
-        <SendRegular className={styles.questionInputSendButtonDisabled} />
-        :
-        <img src={Send} className={styles.questionInputSendButton} alt="Send question" />
-    }
-</div>
+
 
         <div className={styles.questionInputBottomBorder} />
     </Stack>
