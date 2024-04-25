@@ -98,6 +98,20 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
                     <img src={Microfone} className={styles.questionInputSendButton} />
                 </button>
             )}
+
+<div className={styles.questionInputSendButtonContainer} 
+                role="button" 
+                tabIndex={0}
+                aria-label="Ask question button"
+                onClick={sendQuestion}
+                onKeyDown={e => e.key === "Enter" || e.key === " " ? sendQuestion() : null}
+            >
+                { sendQuestionDisabled ? 
+                    <SendRegular className={styles.questionInputSendButtonDisabled}/>
+                    :
+                    <img src={Send} className={styles.questionInputSendButton}/>
+                }
+            </div>
         </div>
         <div className={styles.questionInputBottomBorder} />
     </Stack>
