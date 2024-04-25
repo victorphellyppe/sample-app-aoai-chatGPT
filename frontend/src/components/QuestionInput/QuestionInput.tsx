@@ -115,7 +115,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         </div> */}
 
 <div
-style={{ border: 'none' }}
+    className={styles.questionAlinha}
     role="button"
     tabIndex={0}
     aria-label={isRecording ? "Stop recording" : "Start recording"}
