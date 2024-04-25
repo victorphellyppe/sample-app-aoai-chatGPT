@@ -114,8 +114,8 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             </div>
         </div> */}
 
-{/* style={{ border: '1px solid green' }} */}
 <div
+style={{ border: 'none' }}
     role="button"
     tabIndex={0}
     aria-label={isRecording ? "Stop recording" : "Start recording"}

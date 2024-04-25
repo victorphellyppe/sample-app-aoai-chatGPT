@@ -793,7 +793,7 @@ const Chat = () => {
                     {/* Botão de microfone para iniciar gravação */}
                     
                     {/* <div style={{ marginRight: '60px', border: '1px solid red' }}>
-    <butto
+    <button
         onClick={isRecording ? stopRecording : startRecording}
         className={styles.microphoneButton}
         disabled={isLoading}
