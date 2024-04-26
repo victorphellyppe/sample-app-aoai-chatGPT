@@ -73,16 +73,20 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
     const sendQuestionDisabled = disabled || !question.trim();
 
     // text to speech
-    console.log({question});
+    // console.log({question});
     const speak = async () => {
         console.log('idioma selecionado', language);
-        setLanguage(language); // Atualiza o estado do idioma
         const speechConfig = sdk.SpeechConfig.fromSubscription("b297cc740e404532ae00da4ff5f7a8f6", "eastus");
         const audioConfig = sdk.AudioConfig.fromDefaultSpeakerOutput();
         const synthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
         console.log('Variaveis', { language, question, speechConfig  });
+        // Verifica se o idioma selecionado é diferente do idioma atual
+    if (language !== speechConfig.speechSynthesisLanguage) {
+        // Atualiza o idioma no objeto speechConfig apenas se for diferente
         speechConfig.speechSynthesisLanguage = language;
-        await synthesizer.speakTextAsync(question);
+    }
+
+    await synthesizer.speakTextAsync(question);
     };
 
     const languageOptions = [
