@@ -5,6 +5,7 @@ import Send from "../../assets/Send.svg";
 import styles from "./QuestionInput.module.css";
 import Microfone from '../../assets/Microfone.svg';
 import StopIcon from '../../assets/stop.png';
+import Speak from '../../assets/speak.png';
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 
 type webkitSpeechRecognition = any;
@@ -110,7 +111,9 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
           <option key={index} value={option.code}>{option.label}</option>
         ))}
       </select>
-      <button onClick={speak}>Speak</button>
+      <button onClick={speak}>
+        <img style={{ width: '40px', position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)' }} src={Speak} className={styles.microphoneIcon} alt="Outro Ícone" />
+      </button>
     </div>
         {/* <select value={language} onChange={(e) => setLanguage(e.target.value)}>
         {languageOptions.map((option, index) => (
