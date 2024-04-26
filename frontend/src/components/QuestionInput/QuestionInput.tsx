@@ -84,6 +84,14 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
 
         await synthesizer.speakTextAsync(question);
     };
+
+    const languageOptions = [
+        { code: 'es-ES', label: 'Espanhol (Espanha)' },
+        { code: 'en-US', label: 'Inglês (Estados Unidos)' },
+        { code: 'fr-FR', label: 'Francês (França)' },
+        { code: 'pt-BR', label: 'Português (Brasil)' },
+        // Adicione mais idiomas conforme necessário
+      ];
     
     
     return (
@@ -100,10 +108,9 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         />
         {/* Teste de linguagem         */}
         <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-            <option value="es-ES">Espanhol (Espanha)</option>
-            <option value="en-US">Inglês (Estados Unidos)</option>
-            <option value="pt-BR">Português (Brasil)</option>
-            {/* Adicione mais opções de idioma conforme necessário */}
+        {languageOptions.map((option, index) => (
+          <option key={index} value={option.code}>{option.label}</option>
+        ))}
       </select>
         <button onClick={speak}>Speak</button>
 
