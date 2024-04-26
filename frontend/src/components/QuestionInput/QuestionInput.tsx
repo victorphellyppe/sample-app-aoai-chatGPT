@@ -5,7 +5,7 @@ import Send from "../../assets/Send.svg";
 import styles from "./QuestionInput.module.css";
 import Microfone from '../../assets/Microfone.svg';
 import StopIcon from '../../assets/stop.png';
-
+import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 
 type webkitSpeechRecognition = any;
 
@@ -69,6 +69,17 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
 
     const sendQuestionDisabled = disabled || !question.trim();
 
+    // text to speech
+    console.log({question});
+    const speak = async () => {
+        const speechConfig = sdk.SpeechConfig.fromSubscription("b297cc740e404532ae00da4ff5f7a8f6", "eastus");
+        const audioConfig = sdk.AudioConfig.fromDefaultSpeakerOutput();
+        const synthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
+    
+        await synthesizer.speakTextAsync(question);
+    };
+    
+    
     return (
         <Stack horizontal className={styles.questionInputContainer}>
         <TextField
@@ -81,6 +92,8 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             onChange={onQuestionChange}
             onKeyDown={onEnterPress}
         />
+        <button onClick={speak}>Speak</button>
+
         {/* <div
         style={{border: '1px solid green'}}
             role="button"

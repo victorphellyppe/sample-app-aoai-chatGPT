@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "@types/webspeechapi": "^0.0.29"
+  },
+  "dependencies": {
+    "microsoft-cognitiveservices-speech-sdk": "^1.36.0"
   }
 }
