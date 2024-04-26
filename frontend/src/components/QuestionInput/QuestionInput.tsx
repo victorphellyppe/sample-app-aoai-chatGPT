@@ -109,7 +109,6 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
           <option key={index} value={option.code}>{option.label}</option>
         ))}
       </select>
-      <input type="text" value={question} onChange={(e) => setQuestion(e.target.value)} />
       <button onClick={speak}>Speak</button>
     </div>
         {/* <select value={language} onChange={(e) => setLanguage(e.target.value)}>
