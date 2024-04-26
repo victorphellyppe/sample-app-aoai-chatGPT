@@ -21,6 +21,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
     const [question, setQuestion] = useState<string>("");
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const recognition = useRef<webkitSpeechRecognition | null>(null);
+    const [language, setLanguage] = useState('pt-Br'); // Defina o idioma desejado aqui
 
     const startRecording = () => {
         recognition.current = new (window as any).webkitSpeechRecognition();
@@ -92,6 +93,12 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             onChange={onQuestionChange}
             onKeyDown={onEnterPress}
         />
+        {/* Teste de linguagem         */}
+        <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+        <option value="es-ES">Espanhol (Espanha)</option>
+        <option value="en-US">Inglês (Estados Unidos)</option>
+        {/* Adicione mais opções de idioma conforme necessário */}
+      </select>
         <button onClick={speak}>Speak</button>
 
         {/* <div
