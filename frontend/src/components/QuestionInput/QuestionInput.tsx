@@ -118,7 +118,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         ))}
       </select>
       <button onClick={speak}>
-        <img style={{ width: '40px', position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)' }} src={Speak} className={styles.microphoneIcon} alt="Outro Ícone" />
+        <img style={{ width: '40px', position: 'relative' }} src={Speak} className={styles.microphoneIcon} alt="Outro Ícone" />
       </button>
     </div>
         {/* <select value={language} onChange={(e) => setLanguage(e.target.value)}>
