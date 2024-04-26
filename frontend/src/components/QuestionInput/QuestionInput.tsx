@@ -22,7 +22,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
     const [question, setQuestion] = useState<string>("");
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const recognition = useRef<webkitSpeechRecognition | null>(null);
-    const [language, setLanguage] = useState(); // Defina o idioma desejado aqui
+    const [language, setLanguage] = useState(''); // Defina o idioma desejado aqui
 
 
     const startRecording = () => {
