@@ -23,6 +23,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
     const recognition = useRef<webkitSpeechRecognition | null>(null);
     const [language, setLanguage] = useState('pt-Br'); // Defina o idioma desejado aqui
 
+
     const startRecording = () => {
         recognition.current = new (window as any).webkitSpeechRecognition();
         recognition.current.lang = 'pt-BR';
@@ -77,6 +78,10 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         const audioConfig = sdk.AudioConfig.fromDefaultSpeakerOutput();
         const synthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
     
+        // objeto speech
+        const utterance = new SpeechSynthesisUtterance(question);
+        utterance.lang = language;
+
         await synthesizer.speakTextAsync(question);
     };
     
@@ -95,9 +100,10 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         />
         {/* Teste de linguagem         */}
         <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-        <option value="es-ES">Espanhol (Espanha)</option>
-        <option value="en-US">Inglês (Estados Unidos)</option>
-        {/* Adicione mais opções de idioma conforme necessário */}
+            <option value="es-ES">Espanhol (Espanha)</option>
+            <option value="en-US">Inglês (Estados Unidos)</option>
+            <option value="pt-BR">Português (Brasil)</option>
+            {/* Adicione mais opções de idioma conforme necessário */}
       </select>
         <button onClick={speak}>Speak</button>
 
