@@ -21,7 +21,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
     const [question, setQuestion] = useState<string>("");
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const recognition = useRef<webkitSpeechRecognition | null>(null);
-    const [language, setLanguage] = useState('pt-Br'); // Defina o idioma desejado aqui
+    const [language, setLanguage] = useState('en-US'); // Defina o idioma desejado aqui
 
 
     const startRecording = () => {
@@ -78,10 +78,6 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         const audioConfig = sdk.AudioConfig.fromDefaultSpeakerOutput();
         const synthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
     
-        // objeto speech
-        const utterance = new SpeechSynthesisUtterance(question);
-        utterance.lang = language;
-
         await synthesizer.speakTextAsync(question);
     };
 
@@ -107,12 +103,21 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             onKeyDown={onEnterPress}
         />
         {/* Teste de linguagem         */}
-        <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+        <div>
+      <select value={language} onChange={(e) => setLanguage(e.target.value)}>
         {languageOptions.map((option, index) => (
           <option key={index} value={option.code}>{option.label}</option>
         ))}
       </select>
-        <button onClick={speak}>Speak</button>
+      <input type="text" value={question} onChange={(e) => setQuestion(e.target.value)} />
+      <button onClick={speak}>Speak</button>
+    </div>
+        {/* <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+        {languageOptions.map((option, index) => (
+          <option key={index} value={option.code}>{option.label}</option>
+        ))}
+      </select>
+        <button onClick={speak}>Speak</button> */}
 
         {/* <div
         style={{border: '1px solid green'}}
