@@ -77,7 +77,8 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         const speechConfig = sdk.SpeechConfig.fromSubscription("b297cc740e404532ae00da4ff5f7a8f6", "eastus");
         const audioConfig = sdk.AudioConfig.fromDefaultSpeakerOutput();
         const synthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
-    
+        console.log('Variaveis', { language, question, speechConfig  });
+        speechConfig.speechSynthesisLanguage = language;
         await synthesizer.speakTextAsync(question);
     };
 

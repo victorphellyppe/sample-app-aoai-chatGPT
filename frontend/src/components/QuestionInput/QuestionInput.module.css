@@ -46,6 +46,9 @@
     position: relative;
     padding: 24px;
 }
+.container-speak {
+    border: 2px solid red;
+}
 
 .questionInputBottomBorder {
     position: absolute;
