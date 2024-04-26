@@ -103,7 +103,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             onKeyDown={onEnterPress}
         />
         {/* Teste de linguagem         */}
-        <div>
+    <div className="container-speak">
       <select value={language} onChange={(e) => setLanguage(e.target.value)}>
         {languageOptions.map((option, index) => (
           <option key={index} value={option.code}>{option.label}</option>
