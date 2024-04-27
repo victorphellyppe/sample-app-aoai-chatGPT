@@ -22,12 +22,12 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
     const [question, setQuestion] = useState<string>("");
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const recognition = useRef<webkitSpeechRecognition | null>(null);
-    const [language, setLanguage] = useState(''); // Defina o idioma desejado aqui
+    const [language, setLanguage] = useState(""); // Defina o idioma desejado aqui
 
 
     const startRecording = () => {
         recognition.current = new (window as any).webkitSpeechRecognition();
-        recognition.current.lang = 'pt-BR';
+        // recognition.current.lang = 'pt-BR';
         recognition.current.onresult = (event: any) => {
             const result = event.results[0][0].transcript;
             setQuestion(result);
@@ -72,21 +72,15 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
 
     const sendQuestionDisabled = disabled || !question.trim();
 
-    // text to speech
     // console.log({question});
     const speak = async () => {
         console.log('idioma selecionado', language);
         const speechConfig = sdk.SpeechConfig.fromSubscription("b297cc740e404532ae00da4ff5f7a8f6", "eastus");
         const audioConfig = sdk.AudioConfig.fromDefaultSpeakerOutput();
+        speechConfig.speechSynthesisLanguage = language; // Defina o idioma de síntese de fala
         const synthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
-        console.log('Variaveis', { language, question, speechConfig  });
-        // Verifica se o idioma selecionado é diferente do idioma atual
-    if (language !== speechConfig.speechSynthesisLanguage) {
-        // Atualiza o idioma no objeto speechConfig apenas se for diferente
-        speechConfig.speechSynthesisLanguage = language;
-    }
-
-    await synthesizer.speakTextAsync(question);
+        console.log('Variaveis', { language, question, speechConfig  }, speechConfig.speechSynthesisLanguage, language);
+        await synthesizer.speakTextAsync(question);
     };
 
     const languageOptions = [
@@ -118,7 +112,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         ))}
       </select>
       <button onClick={speak}>
-        <img style={{ width: '40px', position: 'relative' }} src={Speak} className={styles.microphoneIcon} alt="Outro Ícone" />
+        <img style={{ width: '40px', position: 'relative' }} src={Speak} className={styles.microphoneIcon} alt="Ícone speak" />
       </button>
     </div>
         {/* <select value={language} onChange={(e) => setLanguage(e.target.value)}>
