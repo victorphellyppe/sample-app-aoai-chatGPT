@@ -50,11 +50,11 @@
     display: flex;
     gap: 15px;
     flex-direction: column;
-    margin-top: 30px;
-    border: 1px solid red;
+    margin-top: 20px;
+    /* border: 1px solid red; */
 }
 .containerSelect {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     /* display: flex;
     flex-direction: column;
     gap: 40%;
