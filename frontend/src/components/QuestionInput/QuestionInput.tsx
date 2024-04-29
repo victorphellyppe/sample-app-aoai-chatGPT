@@ -87,7 +87,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         // { code: 'es-ES', label: 'Espanhol (Espanha)' },
         { code: 'en-US', label: 'Inglês (Estados Unidos)' },
         { code: 'zh-CN', label: 'Chinês (simplificado)' },
-        { code: 'zh-tw', label: 'Chinês tradicional' },
+        // { code: 'zh-tw', label: 'Chinês tradicional' },
         { code: 'pt-BR', label: 'Português (Brasil)' },
       ];
     
