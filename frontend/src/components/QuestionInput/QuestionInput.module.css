@@ -46,15 +46,20 @@
     position: relative;
     padding: 24px;
 }
-.container-speak {
+.containerSpeak {
     display: flex;
     gap: 15px;
     flex-direction: column;
     margin-top: 30px;
     border: 1px solid red;
 }
-.container-speak select {
+.containerSelect {
     border: 1px solid green;
+    /* display: flex;
+    flex-direction: column;
+    gap: 40%;
+    background: none;
+    width: 20%;  */
 }
 
 .questionInputBottomBorder {

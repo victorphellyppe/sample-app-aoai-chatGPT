@@ -84,11 +84,10 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
     };
 
     const languageOptions = [
-        { code: 'es-ES', label: 'Espanhol (Espanha)' },
+        // { code: 'es-ES', label: 'Espanhol (Espanha)' },
         { code: 'en-US', label: 'Inglês (Estados Unidos)' },
-        { code: 'fr-FR', label: 'Francês (França)' },
+        { code: 'zh-Hans', label: 'Chinês (simplificado)' },
         { code: 'pt-BR', label: 'Português (Brasil)' },
-        // Adicione mais idiomas conforme necessário
       ];
     
     
@@ -105,8 +104,10 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             onKeyDown={onEnterPress}
         />
         {/* Teste de linguagem         */}
-    <div className="container-speak">
-      <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+    <div className={styles.containerSpeak}>
+      <select value={language} onChange={(e) => setLanguage(e.target.value)} 
+                  className={styles.containerSelect}
+                  >
         {languageOptions.map((option, index) => (
           <option key={index} value={option.code}>{option.label}</option>
         ))}
