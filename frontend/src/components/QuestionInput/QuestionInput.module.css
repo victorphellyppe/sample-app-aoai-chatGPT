@@ -61,6 +61,11 @@
     background: none;
     width: 20%;  */
 }
+.buttonContainer {
+    background: none;
+    border: none; 
+    padding: 0
+}
 
 .questionInputBottomBorder {
     position: absolute;
