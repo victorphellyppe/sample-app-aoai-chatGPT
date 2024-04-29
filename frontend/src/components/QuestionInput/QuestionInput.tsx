@@ -105,7 +105,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             onKeyDown={onEnterPress}
         />
         {/* Teste de linguagem         */}
-    <div className={styles.containerSpeak}>
+    {/* <div className={styles.containerSpeak}>
       <select value={language} onChange={(e) => setLanguage(e.target.value)} 
                   className={styles.containerSelect}
                   >
@@ -116,47 +116,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
       <button onClick={speak} className={styles.buttonContainer}>
         <img style={{ width: '40px', position: 'relative' }} src={Speak} className={styles.microphoneIcon} alt="Ícone speak" />
       </button>
-    </div>
-        {/* <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-        {languageOptions.map((option, index) => (
-          <option key={index} value={option.code}>{option.label}</option>
-        ))}
-      </select>
-        <button onClick={speak}>Speak</button> */}
-
-        {/* <div
-        style={{border: '1px solid green'}}
-            role="button"
-            tabIndex={0}
-            aria-label={isRecording ? "Stop recording" : "Start recording"}
-            onClick={isRecording ? stopRecording : startRecording}
-            onKeyDown={e => (e.key === "Enter" || e.key === " ") ? (isRecording ? stopRecording : startRecording) : null}
-        >
-            {isRecording ? (
-                <button style={{ background: 'none', border: 'none', padding: '0' }}>
-                    <img src={StopIcon} className={styles.questionInputSendButton} />
-                </button>
-            ) : (
-                <button style={{ background: 'none', border: 'none', padding: '0' }}>
-                    <img src={Microfone} className={styles.questionInputSendButton} />
-                </button>
-            )}
-
-<div className={styles.questionInputSendButtonContainer} 
-                role="button" 
-                tabIndex={0}
-                aria-label="Ask question button"
-                onClick={sendQuestion}
-                onKeyDown={e => e.key === "Enter" || e.key === " " ? sendQuestion() : null}
-            >
-                { sendQuestionDisabled ? 
-                    <SendRegular className={styles.questionInputSendButtonDisabled}/>
-                    :
-                    <img src={Send} className={styles.questionInputSendButton}/>
-                }
-            </div>
-        </div> */}
-
+    </div> */}
 <div
     className={styles.questionAlinha}
     role="button"
