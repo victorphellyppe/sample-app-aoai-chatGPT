@@ -86,7 +86,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
     const languageOptions = [
         // { code: 'es-ES', label: 'Espanhol (Espanha)' },
         { code: 'en-US', label: 'Inglês (Estados Unidos)' },
-        { code: 'zh-Hans', label: 'Chinês (simplificado)' },
+        { code: 'zh-CN', label: 'Chinês (simplificado)' },
         { code: 'pt-BR', label: 'Português (Brasil)' },
       ];
     
