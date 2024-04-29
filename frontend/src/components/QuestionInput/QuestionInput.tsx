@@ -112,7 +112,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
           <option key={index} value={option.code}>{option.label}</option>
         ))}
       </select>
-      <button onClick={speak}>
+      <button onClick={speak} style={{ background: 'none', border: 'none', padding: '0' }}>
         <img style={{ width: '40px', position: 'relative' }} src={Speak} className={styles.microphoneIcon} alt="Ícone speak" />
       </button>
     </div>
