@@ -26,6 +26,8 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
 
 
     const startRecording = () => {
+        console.log('startRecording, questionImnput');
+        
         recognition.current = new (window as any).webkitSpeechRecognition();
         // recognition.current.lang = 'pt-BR';
         recognition.current.onresult = (event: any) => {
