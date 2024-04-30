@@ -239,7 +239,7 @@ export const Answer = ({
                             onKeyDown={e => e.key === "Enter" || e.key === " " ? toggleIsRefAccordionOpen() : null}
                         >
                             <Stack style={{ width: "100%" }} >
-                                <Stack horizontal horizontalAlign='start' verticalAlign='center'>
+                                {/* <Stack horizontal horizontalAlign='start' verticalAlign='center'>
                                     <Text
                                         className={styles.accordionTitle}
                                         onClick={toggleIsRefAccordionOpen}
@@ -252,14 +252,14 @@ export const Answer = ({
                                     <FontIcon className={styles.accordionIcon}
                                         onClick={handleChevronClick} iconName={chevronIsExpanded ? 'ChevronDown' : 'ChevronRight'}
                                     />
-                                </Stack>
+                                </Stack> */}
 
                             </Stack>
                         </Stack.Item>
                     )}
-                    <Stack.Item className={styles.answerDisclaimerContainer}>
-                        <span className={styles.answerDisclaimer}>AI-generated content may be incorrect</span>
-                    </Stack.Item>
+                    {/* <Stack.Item className={styles.answerDisclaimerContainer}> */}
+                        {/* <span className={styles.answerDisclaimer}>AI-generated content may be incorrect</span> */}
+                    {/* </Stack.Item> */}
                 </Stack>
                 {chevronIsExpanded &&
                     <div className={styles.citationWrapper} >

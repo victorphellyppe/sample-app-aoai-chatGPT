@@ -1,6 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 import styles from "./Layout.module.css";
-import Contoso from "../../assets/Contoso.svg";
+import CPFL from "../../assets/cpfl.png";
 import { CopyRegular } from "@fluentui/react-icons";
 import { Dialog, Stack, TextField } from "@fluentui/react";
 import { useContext, useEffect, useState } from "react";
@@ -70,7 +70,7 @@ const Layout = () => {
                 <Stack horizontal verticalAlign="center" horizontalAlign="space-between">
                     <Stack horizontal verticalAlign="center">
                         <img
-                            src={ui?.logo ? ui.logo : Contoso}
+                            src={ui?.logo ? ui.logo : CPFL}
                             className={styles.headerIcon}
                             aria-hidden="true"
                         />
@@ -78,12 +78,12 @@ const Layout = () => {
                             <h1 className={styles.headerTitle}>{ui?.title}</h1>
                         </Link>
                     </Stack>
-                    <Stack horizontal tokens={{ childrenGap: 4 }} className={styles.shareButtonContainer}>
+                    {/* <Stack horizontal tokens={{ childrenGap: 4 }} className={styles.shareButtonContainer}>
                         {(appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.NotConfigured) &&
                             <HistoryButton onClick={handleHistoryClick} text={appStateContext?.state?.isChatHistoryOpen ? hideHistoryLabel : showHistoryLabel} />
                         }
                         {ui?.show_share_button &&<ShareButton onClick={handleShareClick} text={shareLabel} />}
-                    </Stack>
+                    </Stack> */}
                 </Stack>
             </header>
             <Outlet />

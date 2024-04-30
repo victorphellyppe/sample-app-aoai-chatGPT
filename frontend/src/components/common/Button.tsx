@@ -8,15 +8,16 @@ interface ButtonProps extends IButtonProps {
 }
 
 export const ShareButton: React.FC<ButtonProps> = ({ onClick, text }) => {
+  return null;
 
-  return (
-    <CommandBarButton
-      className={styles.shareButtonRoot}
-      iconProps={{ iconName: 'Share' }}
-      onClick={onClick}
-      text={text}
-    />
-  )
+  // return (
+  //   <CommandBarButton
+  //     className={styles.shareButtonRoot}
+  //     iconProps={{ iconName: 'Share' }}
+  //     onClick={onClick}
+  //     text={text}
+  //   />
+  // )
 }
 
 export const HistoryButton: React.FC<ButtonProps> = ({ onClick, text }) => {

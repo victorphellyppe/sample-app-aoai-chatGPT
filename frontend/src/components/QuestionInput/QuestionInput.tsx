@@ -37,6 +37,8 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         };
     
         recognition.current.onresult = (event: any) => {
+            console.log({PropiedadeEvento: event});
+            
             const result = event.results[0][0].transcript;
             console.log('Speech recognized: ', result);
             setQuestion(result);
@@ -49,15 +51,23 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             switch (detectedLanguage) {
                 case 'pt-BR':
                     language = 'Português';
+                    console.log(language);
+                    
                     break;
                 case 'en-US':
                     language = 'Inglês';
+                    console.log(language);
+
                     break;
                 case 'zh-CN':
                     language = 'Chinês';
+                    console.log(language);
+
                     break;
                 default:
                     language = 'Desconhecido';
+                    console.log(language);
+
             }
     
             console.log('Detected language: ', language);
@@ -65,8 +75,10 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             // Aqui você pode adicionar a lógica para enviar a transcrição e o idioma para onde for necessário
             setTimeout(() => {
                 const data = JSON.stringify({ question: result, language: detectedLanguage });
+                console.log('setTimeout', data);
                 onSend(data);
-            }, 2000);
+                stopRecording();
+            }, 3000);
         };
     
         recognition.current.onerror = (event: any) => {
