@@ -26,20 +26,76 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
 
 
     const startRecording = () => {
-        console.log('startRecording, questionImnput');
+        console.log('startRecording, questionInput');
         
-        recognition.current = new (window as any).webkitSpeechRecognition();
-        // recognition.lang = ['pt-BR', 'en-US', 'es-ES'];
+        const recognition = new (window as any).webkitSpeechRecognition();
+        recognition.current.lang = ['pt-BR', 'en-US', 'zh-CN']; // Lista de idiomas suportados
+        recognition.current.interimResults = false; // Se deseja resultados intermediários, mude para true
+    
+        recognition.current.onstart = () => {
+            console.log('Speech recognition started');
+        };
+    
         recognition.current.onresult = (event: any) => {
             const result = event.results[0][0].transcript;
+            console.log('Speech recognized: ', result);
             setQuestion(result);
+    
+            // Determine o idioma da transcrição
+            const detectedLanguage = event.results[0].lang;
+    
+            // Mapeie os códigos de idioma detectados para idiomas legíveis
+            let language;
+            switch (detectedLanguage) {
+                case 'pt-BR':
+                    language = 'Português';
+                    break;
+                case 'en-US':
+                    language = 'Inglês';
+                    break;
+                case 'zh-CN':
+                    language = 'Chinês';
+                    break;
+                default:
+                    language = 'Desconhecido';
+            }
+    
+            console.log('Detected language: ', language);
+    
+            // Aqui você pode adicionar a lógica para enviar a transcrição e o idioma para onde for necessário
             setTimeout(() => {
-                onSend(question);
+                const data = JSON.stringify({ question: result, language: detectedLanguage });
+                onSend(data);
             }, 2000);
         };
+    
+        recognition.current.onerror = (event: any) => {
+            console.error('Speech recognition error: ', event.error);
+        };
+    
+        recognition.current.onend = () => {
+            console.log('Speech recognition ended');
+        };
+    
         recognition.current.start();
-        setIsRecording(true);
     };
+    
+
+    // const startRecording = () => {
+    //     console.log('startRecording, questionImnput');
+        
+    //     recognition.current = new (window as any).webkitSpeechRecognition();
+    //     // recognition.lang = ['pt-BR', 'en-US', 'zh-CN']; // Lista de idiomas suportados
+    //     recognition.current.onresult = (event: any) => {
+    //         const result = event.results[0][0].transcript;
+    //         setQuestion(result);
+    //         setTimeout(() => {
+    //             onSend(question);
+    //         }, 2000);
+    //     };
+    //     recognition.current.start();
+    //     setIsRecording(true);
+    // };
 
     const stopRecording = () => {
         if (recognition.current) {
