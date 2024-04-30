@@ -34,9 +34,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             const result = event.results[0][0].transcript;
             setQuestion(result);
             setTimeout(() => {
-                if(conversationId){
-                    sendQuestion();
-                }
+                onSend(question);
             }, 2000);
         };
         recognition.current.start();
