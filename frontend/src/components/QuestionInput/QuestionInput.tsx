@@ -29,12 +29,14 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         console.log('startRecording, questionImnput');
         
         recognition.current = new (window as any).webkitSpeechRecognition();
-        // recognition.current.lang = 'pt-BR';
+        // recognition.lang = ['pt-BR', 'en-US', 'es-ES'];
         recognition.current.onresult = (event: any) => {
             const result = event.results[0][0].transcript;
             setQuestion(result);
             setTimeout(() => {
-                sendQuestion();
+                if(conversationId){
+                    sendQuestion();
+                }
             }, 2000);
         };
         recognition.current.start();
@@ -47,6 +49,8 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
             setIsRecording(false);
         }
     };
+
+
 
     const sendQuestion = () => {
         console.log('send question');
