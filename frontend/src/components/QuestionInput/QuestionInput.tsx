@@ -31,6 +31,9 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         recognition.current.onresult = (event: any) => {
             const result = event.results[0][0].transcript;
             setQuestion(result);
+            setTimeout(() => {
+                sendQuestion();
+            }, 2000);
         };
         recognition.current.start();
         setIsRecording(true);
