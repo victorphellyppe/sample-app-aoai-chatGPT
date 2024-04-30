@@ -93,6 +93,21 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
     };
     
 
+    // Função para verificar se a transcrição é uma pergunta
+const isQuestionIntent = (transcription: string): boolean => {
+    // Lista de palavras interrogativas em português
+    const interrogatives = ['quem', 'o que', 'quando', 'onde', 'por que', 'como'];
+
+    // Verifica se a transcrição termina com alguma palavra interrogativa
+    return interrogatives.some((interrogative) => transcription.trim().endsWith(interrogative));
+};
+
+const addInterrogation = (transcription: string): string => {
+    // Adiciona uma interrogação ao final da transcrição, se não houver uma já presente
+    return transcription.trim().endsWith('?') ? transcription : `${transcription.trim()}?`;
+};
+
+
     // const startRecording = () => {
     //     console.log('startRecording, questionImnput');
         
