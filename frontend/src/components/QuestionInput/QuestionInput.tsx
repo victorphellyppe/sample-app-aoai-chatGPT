@@ -47,6 +47,8 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
     };
 
     const sendQuestion = () => {
+        console.log('send question');
+        
         if (disabled || !question.trim()) {
             return;
         }
