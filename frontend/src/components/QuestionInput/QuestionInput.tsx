@@ -29,7 +29,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         console.log('startRecording, questionInput');
         
         const recognition = new (window as any).webkitSpeechRecognition();
-        recognition.current.lang = ['pt-BR', 'en-US', 'zh-CN']; // Lista de idiomas suportados
+        // recognition.current.lang = ['pt-BR', 'en-US', 'zh-CN']; // Lista de idiomas suportados
         recognition.current.interimResults = false; // Se deseja resultados intermediários, mude para true
     
         recognition.current.onstart = () => {
