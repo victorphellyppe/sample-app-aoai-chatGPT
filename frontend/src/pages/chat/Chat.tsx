@@ -637,7 +637,7 @@ const Chat = () => {
     const transcriptionInputRef = useRef<HTMLInputElement>(null);
 
     const startRecording = () => {
-        console.log('startRecording');
+        console.log('startRecording, chat.tsx');
         
         const recognition = createSpeechRecognition();
         // recognition.lang = 'pt-BR';
