@@ -146,9 +146,9 @@ const addInterrogation = (transcription: string): string => {
             setTimeout(() => {
                     const data = JSON.stringify({ question: result, language: detectedLanguage });
                     console.log('setTimeout', data);
-                    onSend(data);
+                    onSend(result);
                     stopRecording();
-                        }, 2000);
+                        }, 1000);
         };
         recognition.current.start();
         setIsRecording(true);
