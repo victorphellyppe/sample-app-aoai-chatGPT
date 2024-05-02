@@ -24,7 +24,7 @@ interface Props {
 
 export const Answer = ({
     answer,
-    onCitationClicked
+    onCitationClicked,
 }: Props) => {
     const initializeAnswerFeedback = (answer: AskResponse) => {
         if (answer.message_id == undefined) return undefined;

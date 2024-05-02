@@ -640,24 +640,52 @@ const Chat = () => {
         console.log('startRecording, chat.tsx');
         
         const recognition = createSpeechRecognition();
-    recognition.lang = ['pt-BR', 'en-US', 'es-ES'];
+        recognition.lang = ['pt-BR', 'en-US', 'es-ES'];
 
-    recognition.onresult = (event: any) => {
-        const result = event.results[0][0].transcript;
-        setTranscription(result);
+        recognition.onresult = (event: any) => {
+            const result = event.results[0][0].transcript;
+            setTranscription(result);
 
-        // Chame a função para falar o texto da transcrição
-        speakText(result);
+            // Chame a função para falar o texto da transcrição
+            speakText(result);
+        };
+
+        recognition.start();
+        setIsRecording(true);
     };
 
-    recognition.start();
-    setIsRecording(true);
-};
-const speakText = (text: string) => {
-    const speechSynthesis = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(text);
-    speechSynthesis.speak(utterance);
-};
+    useEffect(() => {
+        // Chame a função startRecording quando o componente for montado
+        startRecording();
+    }, []);
+
+    const speakText = (text: string) => {
+        const speechSynthesis = window.speechSynthesis;
+        const utterance = new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(utterance);
+    };
+//     const startRecording = () => {
+//         console.log('startRecording, chat.tsx');
+        
+//         const recognition = createSpeechRecognition();
+//     recognition.lang = ['pt-BR', 'en-US', 'es-ES'];
+
+//     recognition.onresult = (event: any) => {
+//         const result = event.results[0][0].transcript;
+//         setTranscription(result);
+
+//         // Chame a função para falar o texto da transcrição
+//         speakText(result);
+//     };
+
+//     recognition.start();
+//     setIsRecording(true);
+// };
+// const speakText = (text: string) => {
+//     const speechSynthesis = window.speechSynthesis;
+//     const utterance = new SpeechSynthesisUtterance(text);
+//     speechSynthesis.speak(utterance);
+// };
 
     const stopRecording = () => {
         console.log('stopRecording');
@@ -720,7 +748,16 @@ const speakText = (text: string) => {
                                     </div>
                                 ) : (
                                     answer.role === "assistant" ? <div className={styles.chatMessageGpt}>
-                                        <Answer
+                                       <Answer
+                answer={{
+                    answer: answer.content,
+                    citations: parseCitationFromMessage(messages[index - 1]),
+                    message_id: answer.id,
+                    feedback: answer.feedback
+                }}
+                onCitationClicked={c => onShowCitation(c)}
+            />
+                                        {/* <Answer
                                             answer={{
                                                 answer: answer.content,
                                                 citations: parseCitationFromMessage(messages[index - 1]),
@@ -728,7 +765,9 @@ const speakText = (text: string) => {
                                                 feedback: answer.feedback
                                             }}
                                             onCitationClicked={c => onShowCitation(c)}
-                                        />
+                                            
+                                        /> */}
+
                                     </div> : answer.role === ERROR ? <div className={styles.chatMessageError}>
                                         <Stack horizontal className={styles.chatMessageErrorContent}>
                                             <ErrorCircleRegular className={styles.errorIcon} style={{ color: "rgba(182, 52, 67, 1)" }} />
@@ -824,7 +863,7 @@ const speakText = (text: string) => {
                         disabled={isLoading}
                         placeholder="Type a new question..."
                         clearOnSend
-                        conversationId={appStateContext?.state.currentChat?.id}
+                        conversationId={appStateContext?.state.currentChat?.id ? appStateContext?.state.currentChat?.id : undefined}
                     />
                 </Stack>
             </div>
