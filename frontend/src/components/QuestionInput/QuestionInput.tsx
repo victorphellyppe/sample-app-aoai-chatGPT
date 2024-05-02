@@ -114,6 +114,8 @@ const addInterrogation = (transcription: string): string => {
         recognition.current = new (window as any).webkitSpeechRecognition();
         // recognition.lang = ['pt-BR', 'en-US', 'zh-CN']; // Lista de idiomas suportados
         recognition.current.onresult = (event: any) => {
+            console.log({event});
+            
             const result = event.results[0][0].transcript;
             setQuestion(result);
             // Determine o idioma da transcrição
@@ -144,8 +146,8 @@ const addInterrogation = (transcription: string): string => {
 
             }
             setTimeout(() => {
-                    const data = JSON.stringify({ question: result, language: detectedLanguage });
-                    console.log('setTimeout', data);
+                    // const data = JSON.stringify({ question: result, language: detectedLanguage });
+                    // console.log('setTimeout', data);
                     onSend(result);
                     stopRecording();
                         }, 1000);

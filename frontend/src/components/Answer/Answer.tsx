@@ -190,7 +190,7 @@ export const Answer = ({
             const codeString = node.children[0].value ?? '';
             return (
                 <SyntaxHighlighter style={nord} language={language} PreTag="div" {...props}>
-                    {codeString}
+                    Victor{codeString}
                 </SyntaxHighlighter>
             );
         },
@@ -198,7 +198,6 @@ export const Answer = ({
     return (
         <>
             <Stack className={styles.answerContainer} tabIndex={0}>
-                victor
                 <Stack.Item>
                     <Stack horizontal grow>
                         <Stack.Item grow>
