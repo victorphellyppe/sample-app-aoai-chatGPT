@@ -640,19 +640,25 @@ const Chat = () => {
         console.log('startRecording, chat.tsx');
         
         const recognition = createSpeechRecognition();
-        // recognition.lang = 'pt-BR';
-        recognition.lang = ['pt-BR', 'en-US', 'es-ES'];
+    recognition.lang = ['pt-BR', 'en-US', 'es-ES'];
 
-    
-        recognition.onresult = (event: any) => {
-            const result = event.results[0][0].transcript;
-            setTranscription(result);
-        };
-    
-        recognition.start();
-        setIsRecording(true);
+    recognition.onresult = (event: any) => {
+        const result = event.results[0][0].transcript;
+        setTranscription(result);
+
+        // Chame a função para falar o texto da transcrição
+        speakText(result);
     };
-    
+
+    recognition.start();
+    setIsRecording(true);
+};
+const speakText = (text: string) => {
+    const speechSynthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    speechSynthesis.speak(utterance);
+};
+
     const stopRecording = () => {
         console.log('stopRecording');
         setIsRecording(false);
