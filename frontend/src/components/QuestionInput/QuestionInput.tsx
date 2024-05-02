@@ -124,22 +124,22 @@ const addInterrogation = (transcription: string): string => {
             switch (detectedLanguage) {
                 case 'pt-BR':
                     language = 'Português';
-                    console.log(language);
+                    console.log('Pt', language);
                     
                     break;
                 case 'en-US':
                     language = 'Inglês';
-                    console.log(language);
+                    console.log('en',language);
 
                     break;
                 case 'zh-CN':
                     language = 'Chinês';
-                    console.log(language);
+                    console.log('chines', language);
 
                     break;
                 default:
                     language = 'Desconhecido';
-                    console.log(language);
+                    console.log('desconhecido', language);
 
             }
             setTimeout(() => {
@@ -157,6 +157,7 @@ const addInterrogation = (transcription: string): string => {
         if (recognition.current) {
             recognition.current.stop();
             setIsRecording(false);
+            sendQuestion();
         }
     };
 
