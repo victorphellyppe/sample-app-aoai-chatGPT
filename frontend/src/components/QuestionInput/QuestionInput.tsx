@@ -74,9 +74,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
         setIsRecording(false);
         // Envie a pergunta e limpe o texto
         onSend(question);
-        if (clearOnSend) {
-            setQuestion("");
-        }
+        setQuestion("");
     };
 
 
