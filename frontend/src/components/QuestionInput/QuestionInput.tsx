@@ -1,4 +1,4 @@
-import React, { useState, useRef  } from "react";
+import React, { useState, useRef, useEffect  } from "react";
 import { Stack, TextField } from "@fluentui/react";
 import { SendRegular } from "@fluentui/react-icons";
 import Send from "../../assets/Send.svg";
@@ -7,6 +7,7 @@ import Microfone from '../../assets/Microfone.svg';
 import StopIcon from '../../assets/stop.png';
 import Speak from '../../assets/speak.png';
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
+// import franc from 'franc-min';
 
 type webkitSpeechRecognition = any;
 
@@ -21,147 +22,73 @@ interface Props {
 export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conversationId }: Props) => {
     const [question, setQuestion] = useState<string>("");
     const [isRecording, setIsRecording] = useState<boolean>(false);
-    const recognition = useRef<webkitSpeechRecognition | null>(null);
     const [language, setLanguage] = useState(""); // Defina o idioma desejado aqui
+    
+    
+    const synth = useRef<SpeechSynthesis>();
+    const recognizerRef = useRef<sdk.SpeechRecognizer>();
+
+    useEffect(() => {
+        // Inicializar o reconhecimento de fala quando o componente montar
+        const speechConfig = sdk.SpeechConfig.fromSubscription("b297cc740e404532ae00da4ff5f7a8f6", "eastus");
+        recognizerRef.current = new sdk.SpeechRecognizer(speechConfig);
+
+        recognizerRef.current.recognizing = (s, e) => {
+            console.log(`RECOGNIZING: Text=${e.result.text}`);
+        };
+
+        recognizerRef.current.recognized = (s, e) => {
+            if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
+                console.log(`RECOGNIZED: Text=${e.result.text}`);
+            } else if (e.result.reason === sdk.ResultReason.NoMatch) {
+                console.log("NOMATCH: Nenhuma correspondência encontrada");
+            }
+        };
+        recognizerRef.current.startContinuousRecognitionAsync();
+
+        // Inicializar a síntese de fala
+        synth.current = window.speechSynthesis;
 
 
-    // const startRecording = () => {
-    //     console.log('startRecording, questionInput');
-        
-    //     const recognition = new (window as any).webkitSpeechRecognition();
-    //     // recognition.current.lang = ['pt-BR', 'en-US', 'zh-CN']; // Lista de idiomas suportados
-    //     // recognition.current.interimResults = false; // Se deseja resultados intermediários, mude para true
-    
-    //     recognition.current.onstart = () => {
-    //         console.log('Speech recognition started');
-    //     };
-    
-    //     recognition.current.onresult = (event: any) => {
-    //         console.log({PropiedadeEvento: event});
-            
-    //         const result = event.results[0][0].transcript;
-    //         console.log('Speech recognized: ', result);
-    //         setQuestion(result);
-    
-    //         // Determine o idioma da transcrição
-    //         const detectedLanguage = event.results[0].lang;
-    
-    //         // Mapeie os códigos de idioma detectados para idiomas legíveis
-    //         let language;
-    //         switch (detectedLanguage) {
-    //             case 'pt-BR':
-    //                 language = 'Português';
-    //                 console.log(language);
-                    
-    //                 break;
-    //             case 'en-US':
-    //                 language = 'Inglês';
-    //                 console.log(language);
+        return () => {
+            if (recognizerRef.current) {
+                recognizerRef.current.stopContinuousRecognitionAsync();
+            }
+        };
+    }, []);
 
-    //                 break;
-    //             case 'zh-CN':
-    //                 language = 'Chinês';
-    //                 console.log(language);
-
-    //                 break;
-    //             default:
-    //                 language = 'Desconhecido';
-    //                 console.log(language);
-
-    //         }
-    
-    //         console.log('Detected language: ', language);
-    
-    //         // Aqui você pode adicionar a lógica para enviar a transcrição e o idioma para onde for necessário
-    //         setTimeout(() => {
-    //             const data = JSON.stringify({ question: result, language: detectedLanguage });
-    //             console.log('setTimeout', data);
-    //             onSend(data);
-    //             stopRecording();
-    //         }, 3000);
-    //     };
-    
-    //     recognition.current.onerror = (event: any) => {
-    //         console.error('Speech recognition error: ', event.error);
-    //     };
-    
-    //     recognition.current.onend = () => {
-    //         console.log('Speech recognition ended');
-    //     };
-    
-    //     recognition.current.start();
-    // };
-    
-
-    // Função para verificar se a transcrição é uma pergunta
-const isQuestionIntent = (transcription: string): boolean => {
-    // Lista de palavras interrogativas em português
-    const interrogatives = ['quem', 'o que', 'quando', 'onde', 'por que', 'como'];
-
-    // Verifica se a transcrição termina com alguma palavra interrogativa
-    return interrogatives.some((interrogative) => transcription.trim().endsWith(interrogative));
-};
-
-const addInterrogation = (transcription: string): string => {
-    // Adiciona uma interrogação ao final da transcrição, se não houver uma já presente
-    return transcription.trim().endsWith('?') ? transcription : `${transcription.trim()}?`;
-};
-
+    const addQuestionMarkIfNeeded = (text: string): string => {
+        // Verificar se a frase termina com um caractere de interrogação
+        if (!text.trim().endsWith('?')) {
+            // Se não terminar, adicionar uma interrogação ao final da frase
+            return text.trim() + '?';
+        }
+        return text.trim();
+    };
 
     const startRecording = () => {
-        console.log('startRecording, questionImnput');
-        
-        recognition.current = new (window as any).webkitSpeechRecognition();
-        // recognition.lang = ['pt-BR', 'en-US', 'zh-CN']; // Lista de idiomas suportados
-        recognition.current.onresult = (event: any) => {
-            console.log({event});
-            
-            const result = event.results[0][0].transcript;
-            setQuestion(result);
-            // Determine o idioma da transcrição
-            const detectedLanguage = event.results[0].lang;
-    console.log(detectedLanguage, 'detectedLanguage');
-    
-    //         // Mapeie os códigos de idioma detectados para idiomas legíveis
-            let language;
-            switch (detectedLanguage) {
-                case 'pt-BR':
-                    language = 'Português';
-                    console.log('Pt', language);
-                    
-                    break;
-                case 'en-US':
-                    language = 'Inglês';
-                    console.log('en',language);
-
-                    break;
-                case 'zh-CN':
-                    language = 'Chinês';
-                    console.log('chines', language);
-
-                    break;
-                default:
-                    language = 'Desconhecido';
-                    console.log('desconhecido', language);
-
-            }
-            setTimeout(() => {
-                    // const data = JSON.stringify({ question: result, language: detectedLanguage });
-                    // console.log('setTimeout', data);
-                    onSend(result);
-                    stopRecording();
-                        }, 1000);
-        };
-        recognition.current.start();
         setIsRecording(true);
     };
 
     const stopRecording = () => {
-        if (recognition.current) {
-            recognition.current.stop();
-            setIsRecording(false);
-            sendQuestion();
+        setIsRecording(false);
+        // Envie a pergunta e limpe o texto
+        onSend(question);
+        if (clearOnSend) {
+            setQuestion("");
         }
+    };
+
+
+    const speakResponse = (text: string) => {
+        if (synth.current && synth.current.speak) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            synth.current.speak(utterance);
+        }
+    };
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setQuestion(event.target.value);
     };
 
 
@@ -282,6 +209,5 @@ const addInterrogation = (transcription: string): string => {
 
         <div className={styles.questionInputBottomBorder} />
     </Stack>
-
     );
 };
