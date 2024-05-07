@@ -30,7 +30,7 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, conv
 
     useEffect(() => {
         // Inicializar o reconhecimento de fala quando o componente montar
-        // const speechConfig = sdk.SpeechConfig.fromSubscription("5b59b83de5be4105b97698cff7713316", "westus2");
+        const speechConfig = sdk.SpeechConfig.fromSubscription("5b59b83de5be4105b97698cff7713316", "westus2");
         recognizerRef.current = new sdk.SpeechRecognizer(speechConfig);
 
         recognizerRef.current.recognizing = (s, e) => {
