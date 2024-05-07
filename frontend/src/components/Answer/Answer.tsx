@@ -47,6 +47,11 @@ export const Answer = ({
     const FEEDBACK_ENABLED = appStateContext?.state.frontendSettings?.feedback_enabled && appStateContext?.state.isCosmosDBAvailable?.cosmosDB; 
     const SANITIZE_ANSWER = appStateContext?.state.frontendSettings?.sanitize_answer 
     
+
+
+    // teste audio
+    const [audioUrl, setAudioUrl] = useState(null);
+/// fim
     const handleChevronClick = () => {
         setChevronIsExpanded(!chevronIsExpanded);
         toggleIsRefAccordionOpen();
@@ -180,6 +185,45 @@ export const Answer = ({
         );
     }
 
+    useEffect(() => {
+        const fetchSpeech = async () => {
+          try {
+            const subscriptionKey = '5b59b83de5be4105b97698cff7713316';
+            const region = 'westus2'; // Por exemplo, 'eastus'
+            const text = parsedAnswer.markdownFormatText;
+    
+            const endpoint = `https://${region}.tts.speech.microsoft.com/cognitiveservices/v1`;
+    
+            const response = await fetch(endpoint, {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${subscriptionKey}`,
+                'Content-Type': 'application/ssml+xml',
+                'X-Microsoft-OutputFormat': 'audio-16khz-64kbitrate-mono-mp3',
+              },
+              body: `<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='pt-BR'>
+                        <voice name='pt-BR-HeloisaRUS'>
+                          ${text}
+                        </voice>
+                      </speak>`
+            });
+    
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+            const blob = await response.blob();
+            const url: any = URL.createObjectURL(blob);
+            setAudioUrl(url);
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        };
+    
+        fetchSpeech();
+      }, [parsedAnswer]);
+    
+
     const components = {
         code({node, ...props}: {node: any, [key: string]: any}) {
             let language;
@@ -190,7 +234,7 @@ export const Answer = ({
             const codeString = node.children[0].value ?? '';
             return (
                 <SyntaxHighlighter style={nord} language={language} PreTag="div" {...props}>
-                    Victor{codeString}
+                    {codeString}
                 </SyntaxHighlighter>
             );
         },
